@@ -52,7 +52,7 @@ def preprocess_data():
         "team1", "team2", "venue", "toss_winner",
         "toss_decision", "winner", "batting_first", "batting_second"
     ]
-    encoders = {}
+    encoders = {}  # Dictionary to store label encoders for each categorical column
     for col in cols_to_encode:
         le = LabelEncoder()
         df[col] = le.fit_transform(df[col])
@@ -64,6 +64,15 @@ def preprocess_data():
         "batting_first", "batting_second", "super_over"
     ]
     target = "winner"
+    config = {
+        'feature_cols': features,
+        'target_col': target,
+        'model_params': {
+            'tree_method': 'hist',
+            'n_jobs': -1,
+            'random_state': 42
+        }
+    }
 
     # Train-test split and model training
     x_train, x_test, y_train, y_test = train_test_split(
