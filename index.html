@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cricket Match Predictor</title>
+</head>
+<body>
+  <h1>Cricket Match Predictor</h1>
+
+  <!-- Stage selector -->
+  <section id="step1">
+    <label for="stage">Prediction stage:</label>
+    <select id="stage">
+      <option value="pre_match">Pre match</option>
+      <option value="post_toss">Post toss</option>
+      <option value="mid_match">Mid match</option>
+    </select>
+
+    <button id="continueBtn">Continue</button>
+  </section>
+
+  <script>
+    document.getElementById("continueBtn").addEventListener("click", () => {
+      const stage = document.getElementById("stage").value;
+      console.log("Selected stage:", stage);
+      // TODO: Route to next step based on selected stage
+    });
+  </script>
+</body>
+</html>
