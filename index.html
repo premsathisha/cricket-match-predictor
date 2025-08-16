@@ -8,23 +8,43 @@
   <h1>Cricket Match Predictor</h1>
 
   <!-- Stage selector -->
-  <section id="step1">
+  <section id="stage-selector">
     <label for="stage">Prediction stage:</label>
     <select id="stage">
       <option value="pre_match">Pre match</option>
       <option value="post_toss">Post toss</option>
       <option value="mid_match">Mid match</option>
     </select>
-
     <button id="continueBtn">Continue</button>
   </section>
 
+  <section id="prediction-form" style="display:none;">
+    <h2 id="formTitle"></h2>
+    <form id="predictForm">
+      <div id="formFields"></div>
+      <button type="submit">Predict</button>
+    </form>
+    <pre id="output"></pre>
+  </section>
+
   <script>
-    document.getElementById("continueBtn").addEventListener("click", () => {
-      const stage = document.getElementById("stage").value;
-      console.log("Selected stage:", stage);
-      // TODO: Route to next step based on selected stage
-    });
+    let stage = null;
+    document.getElementById("continueBtn").onclick = () => {
+      stage = document.getElementById("stage").value;
+      document.getElementById("stage-selector").style.display = "none";
+      document.getElementById("prediction-form").style.display = "block";
+      document.getElementById("formTitle").textContent = stage.replace("_"," ")+" form";
+      document.getElementById("formFields").innerHTML =
+        stage==="pre_match" ? `<input name="team1" placeholder="Team 1"><br><input name="team2" placeholder="Team 2">` :
+        stage==="post_toss" ? `<input name="toss_winner" placeholder="Toss Winner"><br><select name="decision"><option>bat</option><option>field</option></select>` :
+        `<input name="runs" placeholder="Runs"><br><input name="overs" placeholder="Overs">`;
+    };
+    document.getElementById("predictForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const res = await fetch(`/api/${stage}`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+      document.getElementById("output").textContent = JSON.stringify(await res.json(),null,2);
+    };
   </script>
 </body>
 </html>
