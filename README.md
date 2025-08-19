@@ -3,7 +3,7 @@ IPL Match Predictor is a machine learning project focused on predicting outcomes
 
 It’s a mix of sports analytics, practical ML experimentation, and a little curiosity about how well we can model a game that’s known for surprises.
 
-## Why I’m Working On This
+## About This Project
 I’ve always enjoyed both cricket and coding, so this project was a natural way to combine the two. The main goals are:
 
 - Applying machine learning to real-world sports data.
